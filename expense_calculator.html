@@ -164,7 +164,8 @@
     let CalculationUptoYear = document.getElementById("CalculationUptoYear");
     CalculationUptoYear.innerHTML = "";
     let selectedStartYear = parseInt(
-      document.getElementById("YearDropdown").value);
+      document.getElementById("YearDropdown").value
+    );
     for (let i = selectedStartYear + 1; i <= endYear; i++) {
       let option = document.createElement("option");
       option.text = i;
@@ -172,15 +173,19 @@
     }
   }
 
+  let CurrentYear = 0;
+
   function SaveCurrentYear() {
-    var YearDropdown = document.getElementById("YearDropdown");
-    var CurrentYear = YearDropdown.options[YearDropdown.selectedIndex].text;
+    let YearDropdown = document.getElementById("YearDropdown");
+    CurrentYear = YearDropdown.options[YearDropdown.selectedIndex].text;
     console.log(CurrentYear);
   }
 
+  let SelectedYear = 0;
+
   function SaveSelectedYear() {
-    var CalculationUptoYear = document.getElementById("CalculationUptoYear");
-    var SelectedYear =
+    let CalculationUptoYear = document.getElementById("CalculationUptoYear");
+    SelectedYear =
       CalculationUptoYear.options[CalculationUptoYear.selectedIndex].text;
     console.log(SelectedYear);
   }
@@ -218,7 +223,9 @@
     localStorage.setItem("AugustStart", AugustStart);
     AugustEnd = parseFloat(document.getElementById("AugustEnd").value);
     localStorage.setItem("AugustEnd", AugustEnd);
-    SeptemberStart = parseFloat(document.getElementById("SeptemberStart").value);
+    SeptemberStart = parseFloat(
+      document.getElementById("SeptemberStart").value
+    );
     localStorage.setItem("SeptemberStart", SeptemberStart);
     SeptemberEnd = parseFloat(document.getElementById("SeptemberEnd").value);
     localStorage.setItem("SeptemberEnd", SeptemberEnd);
@@ -349,22 +356,31 @@
     console.log("December Expense:", DecemberAvg);
 
     TotalAvg =
-  parseFloat(localStorage.getItem("JanAvg")) +
-  parseFloat(localStorage.getItem("FebAvg")) +
-  parseFloat(localStorage.getItem("MarchAvg")) +
-  parseFloat(localStorage.getItem("AprilAvg")) +
-  parseFloat(localStorage.getItem("MayAvg")) +
-  parseFloat(localStorage.getItem("JuneAvg")) +
-  parseFloat(localStorage.getItem("JulyAvg")) +
-  parseFloat(localStorage.getItem("AugustAvg")) +
-  parseFloat(localStorage.getItem("SeptemberAvg")) +
-  parseFloat(localStorage.getItem("OctoberAvg")) +
-  parseFloat(localStorage.getItem("NovemberAvg")) +
-  parseFloat(localStorage.getItem("DecemberAvg"));
+      parseFloat(localStorage.getItem("JanAvg")) +
+      parseFloat(localStorage.getItem("FebAvg")) +
+      parseFloat(localStorage.getItem("MarchAvg")) +
+      parseFloat(localStorage.getItem("AprilAvg")) +
+      parseFloat(localStorage.getItem("MayAvg")) +
+      parseFloat(localStorage.getItem("JuneAvg")) +
+      parseFloat(localStorage.getItem("JulyAvg")) +
+      parseFloat(localStorage.getItem("AugustAvg")) +
+      parseFloat(localStorage.getItem("SeptemberAvg")) +
+      parseFloat(localStorage.getItem("OctoberAvg")) +
+      parseFloat(localStorage.getItem("NovemberAvg")) +
+      parseFloat(localStorage.getItem("DecemberAvg"));
 
-  localStorage.setItem("TotalAvg", TotalAvg);
-  console.log("Total Expense:", TotalAvg);
+    TotalAvg = parseFloat(localStorage.getItem("TotalAvg"));
 
+    // Calculate the multiplier dynamically
+    let currentYear = new Date().getFullYear();
+    let yearDifference = SelectedYear - currentYear;
+
+    if (!isNaN(yearDifference) && yearDifference > 0) {
+      TotalAvg *= yearDifference;
+    }
+
+    localStorage.setItem("TotalAvg", TotalAvg);
+    console.log("Total Expense:", TotalAvg);
   }
   YearDropdown();
   CalculationUptoYear();
