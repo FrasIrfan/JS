@@ -218,9 +218,7 @@
     localStorage.setItem("AugustStart", AugustStart);
     AugustEnd = parseFloat(document.getElementById("AugustEnd").value);
     localStorage.setItem("AugustEnd", AugustEnd);
-    SeptemberStart = parseFloat(
-      document.getElementById("SeptemberStart").value
-    );
+    SeptemberStart = parseFloat(document.getElementById("SeptemberStart").value);
     localStorage.setItem("SeptemberStart", SeptemberStart);
     SeptemberEnd = parseFloat(document.getElementById("SeptemberEnd").value);
     localStorage.setItem("SeptemberEnd", SeptemberEnd);
@@ -351,23 +349,24 @@
     console.log("December Expense:", DecemberAvg);
 
     TotalAvg =
-      localStorage.getItem("JanAvg") +
-      localStorage.getItem("FebAvg") +
-      localStorage.getItem("MarchAvg") +
-      localStorage.getItem("AprilAvg") +
-      localStorage.getItem("MayAvg") +
-      localStorage.getItem("JuneAvg") +
-      localStorage.getItem("JulyAvg") +
-      localStorage.getItem("AugustAvg") +
-      localStorage.getItem("SeptemberAvg") +
-      localStorage.getItem("OctoberAvg") +
-      localStorage.getItem("NovemberAvg") +
-      localStorage.getItem("DecemberAvg");
-    TotalAvg = localStorage.setItem("TotalAvg", TotalAvg);
-    console.log("Total Expense:", TotalAvg);
-  }
+  parseFloat(localStorage.getItem("JanAvg")) +
+  parseFloat(localStorage.getItem("FebAvg")) +
+  parseFloat(localStorage.getItem("MarchAvg")) +
+  parseFloat(localStorage.getItem("AprilAvg")) +
+  parseFloat(localStorage.getItem("MayAvg")) +
+  parseFloat(localStorage.getItem("JuneAvg")) +
+  parseFloat(localStorage.getItem("JulyAvg")) +
+  parseFloat(localStorage.getItem("AugustAvg")) +
+  parseFloat(localStorage.getItem("SeptemberAvg")) +
+  parseFloat(localStorage.getItem("OctoberAvg")) +
+  parseFloat(localStorage.getItem("NovemberAvg")) +
+  parseFloat(localStorage.getItem("DecemberAvg"));
 
+  localStorage.setItem("TotalAvg", TotalAvg);
+  console.log("Total Expense:", TotalAvg);
+
+  }
   YearDropdown();
   CalculationUptoYear();
-  // SaveExpense(); 
+  // SaveExpense();
 </script>
