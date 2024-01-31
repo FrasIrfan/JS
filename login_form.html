@@ -37,11 +37,22 @@
       <input type="text" id="Email" name="Email" />
       <br />
       <br />
+      <button onclick="clearFields()">Clear-Fields</button>
       <button onclick="signup()">Sign-Up</button>
       <button onclick="toggleForms('LogInForm', 'SignUpForm')">Log-In</button>
     </div>
 
     <script>
+      function clearFields() {
+        localStorage.clear();
+        document.getElementById("signupUsername").value = "";
+        document.getElementById("SignupPassword").value = "";
+        document.getElementById("loginUsername").value = "";
+        document.getElementById("loginPassword").value = "";  
+        document.getElementById("Email").value = "";
+      }
+
+
       function login() {
         localStorage.clear();
         var username = document.getElementById("loginUsername").value;
@@ -62,7 +73,9 @@
 
       function toggleForms(showFormId, hideFormId) {
         document.getElementById(showFormId).style.display = "block";
+        //sets the CSS display property of that element to 'block'. This makes the element visible.
         document.getElementById(hideFormId).style.display = "none";
+        //sets the CSS display property of that element to 'none'. This hides the element.
       }
     </script>
   </body>
