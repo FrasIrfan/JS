@@ -29,45 +29,61 @@
       <input type="text" id="signupUsername" name="signupUsername" />
       <br />
       <br />
-      <label for="SignupPassword">Password:</label>
-      <input type="text" id="SignupPassword" name="SignupPassword" />
+      <label for="signupPassword">Password:</label>
+      <input type="text" id="signupPassword" name="signupPassword" />
       <br />
       <br />
       <label for="Email">Email:</label>
       <input type="text" id="Email" name="Email" />
       <br />
       <br />
-      <button onclick="clearFields()">Clear-Fields</button>
       <button onclick="signup()">Sign-Up</button>
       <button onclick="toggleForms('LogInForm', 'SignUpForm')">Log-In</button>
     </div>
+    
+    <br>
+    <button onclick="clearFields()">Clear-Fields</button>
 
     <script>
       function clearFields() {
         localStorage.clear();
         document.getElementById("signupUsername").value = "";
-        document.getElementById("SignupPassword").value = "";
+        document.getElementById("signupPassword").value = "";
         document.getElementById("loginUsername").value = "";
         document.getElementById("loginPassword").value = "";  
         document.getElementById("Email").value = "";
       }
 
-
       function login() {
-        localStorage.clear();
-        var username = document.getElementById("loginUsername").value;
-        localStorage.setItem("username", username);
-        var password = document.getElementById("loginPassword").value;
-        localStorage.setItem("password", password);
+
+        if (localStorage.getItem("username") == null) {
+          alert("You do not have an account. Please sign-up.");
+          return;
+        }
+        else if (localStorage.getItem("password") == null) {
+          alert("You do not have an account. Please sign-up.");
+          return;
+        }
+        else if (localStorage.getItem("username") != document.getElementById("signupUsername").value) {
+          alert("Username does not match. Please try again.");
+          return;
+        }
+        else if (localStorage.getItem("password") != document.getElementById("signupPassword").value) {
+          alert("Password does not match. Please try again.");
+          return;
+        }
+        else {
+          alert("You have successfully logged in.");
+          return;
+        }
       }
 
       function signup() {
-        localStorage.clear();
-        var username = document.getElementById("signupUsername").value;
+        let username = document.getElementById("signupUsername").value;
         localStorage.setItem("username", username);
-        var password = document.getElementById("SignupPassword").value;
+        let password = document.getElementById("signupPassword").value;
         localStorage.setItem("password", password);
-        var email = document.getElementById("Email").value;
+        let email = document.getElementById("Email").value;
         localStorage.setItem("email", email); 
       }
 
