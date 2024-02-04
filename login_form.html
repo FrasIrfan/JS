@@ -40,8 +40,8 @@
       <button onclick="signup()">Sign-Up</button>
       <button onclick="toggleForms('LogInForm', 'SignUpForm')">Log-In</button>
     </div>
-    
-    <br>
+
+    <br />
     <button onclick="clearFields()">Clear-Fields</button>
 
     <script>
@@ -50,32 +50,33 @@
         document.getElementById("signupUsername").value = "";
         document.getElementById("signupPassword").value = "";
         document.getElementById("loginUsername").value = "";
-        document.getElementById("loginPassword").value = "";  
+        document.getElementById("loginPassword").value = "";
         document.getElementById("Email").value = "";
       }
 
       function login() {
+        let storedUsername = localStorage.getItem("username");
+        let storedPassword = localStorage.getItem("password");
 
-        if (localStorage.getItem("username") == null) {
+        if (storedUsername == null || storedPassword == null) {
           alert("You do not have an account. Please sign-up.");
           return;
         }
-        else if (localStorage.getItem("password") == null) {
-          alert("You do not have an account. Please sign-up.");
-          return;
-        }
-        else if (localStorage.getItem("username") != document.getElementById("signupUsername").value) {
+
+        let enteredUsername = document.getElementById("loginUsername").value;
+        let enteredPassword = document.getElementById("loginPassword").value;
+
+        if (enteredUsername !== storedUsername) {
           alert("Username does not match. Please try again.");
           return;
         }
-        else if (localStorage.getItem("password") != document.getElementById("signupPassword").value) {
+
+        if (enteredPassword !== storedPassword) {
           alert("Password does not match. Please try again.");
           return;
         }
-        else {
-          alert("You have successfully logged in.");
-          return;
-        }
+
+        alert("You have successfully logged in.");
       }
 
       function signup() {
@@ -84,7 +85,7 @@
         let password = document.getElementById("signupPassword").value;
         localStorage.setItem("password", password);
         let email = document.getElementById("Email").value;
-        localStorage.setItem("email", email); 
+        localStorage.setItem("email", email);
       }
 
       function toggleForms(showFormId, hideFormId) {
