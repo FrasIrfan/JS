@@ -44,7 +44,37 @@
     <br />
     <button onclick="clearFields()">Clear-Fields</button>
 
+<br>
+<br>
+  <table border="1">
+    <thead>
+      <tr>
+      <th>Username</th>
+      <th>Password</th>
+      <th>Email</th>
+      </tr>
+    </thead>
+
+    <tbody id="signupDataTable">
+    </tbody>
+  </table>
+
     <script>
+      function signupDataTable() {
+        let username = localStorage.getItem("username");
+        let password = localStorage.getItem("password");
+        let email = localStorage.getItem("email");
+
+        let table = document.getElementById("signupDataTable");
+        let row = table.insertRow(0);
+        let cell1 = row.insertCell(0);
+        let cell2 = row.insertCell(1);
+        let cell3 = row.insertCell(2);
+        cell1.innerHTML = username;
+        cell2.innerHTML = password;
+        cell3.innerHTML = email;
+      }
+
       function clearFields() {
         localStorage.clear();
         document.getElementById("signupUsername").value = "";
@@ -96,6 +126,7 @@
         localStorage.setItem("email", email);
 
         localStorage.setItem("creationTime", new Date().getTime());
+        signupDataTable();
       }
 
       function toggleForms(showFormId, hideFormId) {
