@@ -76,6 +76,14 @@
           return;
         }
 
+        const expirationTime = 3 * 60 * 1000; // 3 minutes
+        const currentTime = new Date().getTime();
+        if (currentTime - localStorage.getItem("creationTime") > expirationTime) {
+          alert("Your session has expired. Please log in again.");
+          clearFields();
+          return;
+        }
+
         alert("You have successfully logged in.");
       }
 
@@ -86,6 +94,8 @@
         localStorage.setItem("password", password);
         let email = document.getElementById("Email").value;
         localStorage.setItem("email", email);
+
+        localStorage.setItem("creationTime", new Date().getTime());
       }
 
       function toggleForms(showFormId, hideFormId) {
