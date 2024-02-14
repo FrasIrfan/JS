@@ -43,6 +43,7 @@
 
     <br />
     <button onclick="clearFields()">Clear-Fields</button>
+    <button onclick="showDataTable()">Show-Data</button>
 
 <br>
 <br>
@@ -60,6 +61,14 @@
   </table>
 
     <script>
+      function showDataTable() {
+        if (isLoggedIn==="true") {
+          signupDataTable();
+        } else {
+          alert("Please log in before showing data.");
+        }
+      }
+
       function signupDataTable() {
         let username = localStorage.getItem("username");
         let password = localStorage.getItem("password");
@@ -113,7 +122,8 @@
           clearFields();
           return;
         }
-
+        // localStorage.setItem("creationTime", new Date().getTime());
+        isLoggedIn = "true";
         alert("You have successfully logged in.");
       }
 
