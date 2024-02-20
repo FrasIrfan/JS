@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Data Display</title>
+  </head>
+  <body>
+    <h1>Data Display Page</h1>
+
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Password</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody id="signupDataTable"></tbody>
+    </table>
+
+    <button onclick="location.href='login_form.html'">
+      Go back to Log-In/Sign-up
+    </button>
+
+    <script>
+      
+
+      function showDataTable() {
+        if (isLoggedIn === "true") {
+          signupDataTable();
+        } else {
+          alert("Please log in before showing data.");
+        }
+      }
+
+      function signupDataTable() {
+        let username = localStorage.getItem("username");
+        let password = localStorage.getItem("password");
+        let email = localStorage.getItem("email");
+
+        let table = document.getElementById("signupDataTable");
+        let row = table.insertRow(0);
+        let cell1 = row.insertCell(0);
+        let cell2 = row.insertCell(1);
+        let cell3 = row.insertCell(2);
+        cell1.innerHTML = username;
+        cell2.innerHTML = password;
+        cell3.innerHTML = email;
+      }
+    </script>
+  </body>
+</html>

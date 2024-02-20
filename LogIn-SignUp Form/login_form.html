@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Log-In/Sign-up Form</title>
+  </head>
+
+  <body>
+    <h1>Log-In/Sign-up Form</h1>
+    <div id="LogInForm">
+      <p>
+        Please enter your username and password to log-in. If you do not have an
+        account, please sign-up.
+      </p>
+      <label for="loginUsername">Username:</label>
+      <input type="text" id="loginUsername" name="loginUsername" />
+      <br />
+      <br />
+      <label for="loginPassword">Password:</label>
+      <input type="text" id="loginPassword" name="loginPassword" />
+      <br />
+      <br />
+      <button onclick="login()">Log-In</button>
+      <button onclick="toggleForms('SignUpForm', 'LogInForm')">Sign-Up</button>
+    </div>
+
+    <div id="SignUpForm" style="display: none">
+      <p>Please enter your username and password to sign-up.</p>
+      <label for="signupUsername">Username:</label>
+      <input type="text" id="signupUsername" name="signupUsername" />
+      <br />
+      <br />
+      <label for="signupPassword">Password:</label>
+      <input type="text" id="signupPassword" name="signupPassword" />
+      <br />
+      <br />
+      <label for="Email">Email:</label>
+      <input type="text" id="Email" name="Email" />
+      <br />
+      <br />
+      <button onclick="signup()">Sign-Up</button>
+      <button onclick="toggleForms('LogInForm', 'SignUpForm')">Log-In</button>
+    </div>
+
+    <br />
+    <button onclick="clearFields()">Clear-Fields</button>
+
+    <button onclick="location.href='data_form.html'">Show-Data</button>
+    
+
+    <script>
+  
+
+      function clearFields() {
+        localStorage.clear();
+        document.getElementById("signupUsername").value = "";
+        document.getElementById("signupPassword").value = "";
+        document.getElementById("loginUsername").value = "";
+        document.getElementById("loginPassword").value = "";
+        document.getElementById("Email").value = "";
+      }
+
+      function login() {
+        let storedUsername = localStorage.getItem("username");
+        let storedPassword = localStorage.getItem("password");
+
+        if (storedUsername == null || storedPassword == null) {
+          alert("You do not have an account. Please sign-up.");
+          return;
+        }
+
+        let enteredUsername = document.getElementById("loginUsername").value;
+        let enteredPassword = document.getElementById("loginPassword").value;
+
+        if (enteredUsername !== storedUsername) {
+          alert("Username does not match. Please try again.");
+          return;
+        }
+
+        if (enteredPassword !== storedPassword) {
+          alert("Password does not match. Please try again.");
+          return;
+        }
+
+        const expirationTime = 3 * 60 * 1000; // 3 minutes
+        const currentTime = new Date().getTime();
+        if (currentTime - localStorage.getItem("creationTime") > expirationTime) {
+          alert("Your session has expired. Please log in again.");
+          clearFields();
+          return;
+        }
+        // localStorage.setItem("creationTime", new Date().getTime());
+        isLoggedIn = "true";
+        alert("You have successfully logged in.");
+      }
+
+      function signup() {
+        let username = document.getElementById("signupUsername").value;
+        localStorage.setItem("username", username);
+        let password = document.getElementById("signupPassword").value;
+        localStorage.setItem("password", password);
+        let email = document.getElementById("Email").value;
+        localStorage.setItem("email", email);
+
+        localStorage.setItem("creationTime", new Date().getTime());
+        signupDataTable();
+      }
+
+      function toggleForms(showFormId, hideFormId) {
+        document.getElementById(showFormId).style.display = "block";
+        //sets the CSS display property of that element to 'block'. This makes the element visible.
+        document.getElementById(hideFormId).style.display = "none";
+        //sets the CSS display property of that element to 'none'. This hides the element.
+      }
+    </script>
+  </body>
+</html>
