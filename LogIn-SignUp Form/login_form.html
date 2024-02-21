@@ -42,14 +42,15 @@
     </div>
 
     <br />
-    <button onclick="clearFields()">Clear-Fields</button>
-
-    <button onclick="location.href='data_form.html'">Show-Data</button>
-    
+    <div id="action-buttons" style="display: none">
+      <button onclick="clearFields()">Clear-Fields</button>
+      <button onclick="location.href='data_form.html'">Show-Data</button>
+    </div>
 
     <script>
-  
-
+      window.onload = function () {
+        showOrHideDataButtons(localStorage.getItem("isLoggedIn"));
+      };
       function clearFields() {
         localStorage.clear();
         document.getElementById("signupUsername").value = "";
@@ -65,6 +66,7 @@
 
         if (storedUsername == null || storedPassword == null) {
           alert("You do not have an account. Please sign-up.");
+          localStorage.setItem("isLoggedIn", false);
           return;
         }
 
@@ -73,23 +75,31 @@
 
         if (enteredUsername !== storedUsername) {
           alert("Username does not match. Please try again.");
+          localStorage.setItem("isLoggedIn", false);
           return;
         }
 
         if (enteredPassword !== storedPassword) {
           alert("Password does not match. Please try again.");
+          localStorage.setItem("isLoggedIn", false);
           return;
         }
 
         const expirationTime = 3 * 60 * 1000; // 3 minutes
         const currentTime = new Date().getTime();
-        if (currentTime - localStorage.getItem("creationTime") > expirationTime) {
+        if (
+          currentTime - localStorage.getItem("creationTime") >
+          expirationTime
+        ) {
           alert("Your session has expired. Please log in again.");
+          localStorage.setItem("isLoggedIn", false);
           clearFields();
           return;
         }
         // localStorage.setItem("creationTime", new Date().getTime());
-        isLoggedIn = "true";
+        localStorage.setItem("isLoggedIn", true);
+        showOrHideDataButtons(true);
+        isLoggedIn = true;
         alert("You have successfully logged in.");
       }
 
@@ -102,6 +112,7 @@
         localStorage.setItem("email", email);
 
         localStorage.setItem("creationTime", new Date().getTime());
+        localStorage.setItem("isLoggedIn", false);
         signupDataTable();
       }
 
@@ -110,6 +121,11 @@
         //sets the CSS display property of that element to 'block'. This makes the element visible.
         document.getElementById(hideFormId).style.display = "none";
         //sets the CSS display property of that element to 'none'. This hides the element.
+      }
+      function showOrHideDataButtons(isUserLoggedIn) {
+        document.getElementById("action-buttons").style.display = isUserLoggedIn
+          ? "block"
+          : "none";
       }
     </script>
   </body>
