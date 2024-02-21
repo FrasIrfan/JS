@@ -5,6 +5,12 @@
   </head>
   <body>
     <h1>Data Display Page</h1>
+    <button
+      onclick="location.href='login_form.html'"
+      style="margin-bottom: 15px"
+    >
+      &larr; Go back to Log-In/Sign-up
+    </button>
 
     <table border="1">
       <thead>
@@ -17,15 +23,13 @@
       <tbody id="signupDataTable"></tbody>
     </table>
 
-    <button onclick="location.href='login_form.html'">
-      Go back to Log-In/Sign-up
-    </button>
-
     <script>
-      
+      window.onload = function () {
+        showDataTable();
+      };
 
       function showDataTable() {
-        if (isLoggedIn === "true") {
+        if (localStorage.getItem("isLoggedIn")) {
           signupDataTable();
         } else {
           alert("Please log in before showing data.");
@@ -36,7 +40,9 @@
         let username = localStorage.getItem("username");
         let password = localStorage.getItem("password");
         let email = localStorage.getItem("email");
-
+        if (username == null || password == null || email == null) {
+          alert("Please log in before showing data.");
+        }
         let table = document.getElementById("signupDataTable");
         let row = table.insertRow(0);
         let cell1 = row.insertCell(0);
